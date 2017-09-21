@@ -2,36 +2,40 @@ import { findIndex, set } from 'lodash/fp';
 
 let index = 0;
 
-const todos = (state = [], action) => {
+const todos = (state = {
+  filterBy: 'SHOW_ALL',
+  todos: []
+}, action) => {
   switch (action.type) {
     case 'ADD':
-      return [...state, {
-        text: action.payload.todo,
-        checked: false,
-        id: index++
-      }];
+      return {
+        filterBy: 'SHOW_ALL',
+        todos: [...state.todos, {
+          text: action.payload.todo,
+          checked: false,
+          id: index++
+        }]
+      };
 
     case 'TOGGLE':
-     return state.map(todo => {
-       let newTodo = { ...todo };
+     return {
+       filterBy: 'SHOW_ALL',
+       todos: state.todos.map(todo => {
+         let newTodo = {...todo};
 
-       if (newTodo.id === action.payload.id) {
-         newTodo.checked = !newTodo.checked;
-       }
+         if (newTodo.id === action.payload.id) {
+           newTodo.checked = !newTodo.checked;
+         }
 
-       return newTodo;
-     });
+         return newTodo;
+       })
+     };
 
     case 'FILTER':
-      switch (action.payload.filterString) {
-        case 'SHOW_ALL':
-          return state;
-        case 'SHOW_CHECKED':
-          return state.filter((todo) => todo.checked);
-        case 'SHOW_UNCHECKED':
-          return state.filter((todo) => !todo.checked);
-
-      }
+      return {
+        filterBy: action.payload.filterString,
+        todos: state.todos
+      };
 
     default:
       return state;

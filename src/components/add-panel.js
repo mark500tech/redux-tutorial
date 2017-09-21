@@ -8,8 +8,10 @@ export default class AddPanel extends React.Component {
   }
 
   handleAddClick = () => {
-    this.props.addTodo(this.refs.todoInput.value);
-    this.refs.todoInput.value = '';
+    if (this.refs.todoInput.value) {
+      this.props.addTodo(this.refs.todoInput.value);
+      this.refs.todoInput.value = '';
+    }
   };
 
   render() {

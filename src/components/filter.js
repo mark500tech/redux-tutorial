@@ -11,13 +11,13 @@ export default class Filter extends React.Component {
     return (
       <div className="filter">
         <div>
-          <a href="#" onClick={() => this.props.filterAction('SHOW_ALL')}>Show all</a>
+          <a href="#" onClick={() => this.props.getFilter('SHOW_ALL')}>Show all</a>
         </div>
         <div>
-          <a href="#" onClick={() => this.props.filterAction('SHOW_CHECKED')}>Show checked</a>
+          <a href="#" onClick={() => this.props.getFilter('SHOW_CHECKED')}>Show checked</a>
         </div>
         <div>
-          <a href="#" onClick={() => this.props.filterAction('SHOW_UNCHECKED')}>Show unchecked</a>
+          <a href="#" onClick={() => this.props.getFilter('SHOW_UNCHECKED')}>Show unchecked</a>
         </div>
       </div>
     );
